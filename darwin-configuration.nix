@@ -10,7 +10,6 @@
 
   environment = {
     systemPackages = with pkgs; [
-      docker
       docker-compose
     ];
     shells = [ pkgs.zsh ];

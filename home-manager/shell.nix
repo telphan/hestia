@@ -25,6 +25,7 @@
       PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
       eval $(thefuck --alias)
       eval "$(/opt/homebrew/bin/brew shellenv)"
+      eval "$(direnv hook zsh)"
       autopair-init
                               '';
 

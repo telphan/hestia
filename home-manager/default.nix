@@ -19,6 +19,8 @@
     nerdfonts
     _1password
     thefuck
+    terminal-notifier
+    direnv
 
     # Work
     elixir
@@ -40,6 +42,9 @@
 
   fonts.fontconfig.enable = true;
   programs.home-manager.enable = true;
+
+  home.file.".qutebrowser/config.py".source = ./dotfiles/qutebrowser/config.py;
+  home.file.".qutebrowser/userscripts/1password".source = ./dotfiles/qutebrowser/userscripts/1password;
 
 #  home.activation = {
 #    copyApplications = let
