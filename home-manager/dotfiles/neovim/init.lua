@@ -5,7 +5,7 @@ require('lsp')
 require('nvim-treesitter.configs').setup {
 	sync_install = false,
         ignore_install = { },
-	ensure_installed = "maintained", -- Only use parsers that are maintained
+	-- ensure_installed = "maintained", -- Only use parsers that are maintained
 
 	highlight = { -- enable highlighting
 	  enable = true,
@@ -56,22 +56,35 @@ require('telescope').setup{
     }
   },
   pickers = {
-    -- Default configuration for builtin pickers goes here:
-    -- picker_name = {
-    --   picker_config_key = value,
-    --   ...
-    -- }
-    -- Now the picker_config_key will be applied every time you call this
-    -- builtin picker
+    find_files = {
+      disable_devicons = true,
+      previewer = false,
+      theme = "ivy",
+    },
+    file_browser = {
+      disable_devicons = true,
+      previewer = false,
+      theme = "ivy",
+    },
+    live_grep = {
+      disable_devicons = true,
+      previewer = false,
+      theme = "ivy",
+    },
+    buffers = {
+      disable_devicons = true,
+      previewer = false,
+      theme = "ivy",
+    },
   },
   extensions = {
-    -- Your extension configuration goes here:
-    -- extension_name = {
-    --   extension_config_key = value,
-    -- }
-    -- please take a look at the readme of the extension you want to configure
+    fzy_native = {
+      override_generic_sorter = false,
+      override_file_sorter = true,
+    }
   }
 }
+require('telescope').load_extension('fzy_native')
 
 require('nvim-tree').setup{}
 require("toggleterm").setup{

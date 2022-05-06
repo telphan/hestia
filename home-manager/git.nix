@@ -4,6 +4,10 @@
     enable = true;
     userName = "Theodor Ghezan";
     userEmail = "theodor@duffel.com";
+    signing = {
+      key = "6A7156F77E2B2B94";
+      signByDefault = true;
+    };
     aliases = {
       prettylog = "...";
     };

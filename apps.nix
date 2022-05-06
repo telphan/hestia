@@ -6,16 +6,28 @@
       "1password"
       "amethyst"
       "docker"
+      "spotify"
+      "slack"
 
       # Work
       "zoom"
       "paw"
-      "slack"
+      "wkhtmltopdf"
+
     ];
     brews = [
+      # Work
+      "nodejs"
+      "erlang"
+      "elixir"
+      "coreutils"
+      "asdf"
+      "macos-term-size"
+      "node"
+      "xz"
+      "yarn"
     ];
     masApps = {
     };
   };
 }
- 

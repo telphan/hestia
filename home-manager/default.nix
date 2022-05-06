@@ -21,9 +21,14 @@
     thefuck
     terminal-notifier
     direnv
+    gnupg
+    go_1_18
+    zoxide
+    fzy
 
     # Work
-    elixir
+    #elixir
+    #erlang
     postgresql
   ];
 

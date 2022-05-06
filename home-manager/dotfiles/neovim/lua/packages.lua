@@ -34,16 +34,26 @@ packer.startup(function(use)
 
   use {'hrsh7th/vim-vsnip'}
   use {'hrsh7th/cmp-vsnip'}
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
 
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
 
+  -- Finder
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
+  use {
+    'nvim-telescope/telescope-fzy-native.nvim'
+  }
+
+  -- Motions
+  use 'ggandor/lightspeed.nvim'
+
+  -- Entertainmnet
+  use 'alec-gibson/nvim-tetris'
 
   if Packer_bootstrap then
     packer.sync()
