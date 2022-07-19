@@ -1,0 +1,16 @@
+set -x
+set -e
+set -o pipefail
+NIX_DAEMON_PLIST=/Library/LaunchDaemons/org.nixos.nix-daemon.plist
+
+sudo launchctl unload $NIX_DAEMON_PLIST
+
+while ps -ax | grep -v grep | grep "nix-daemon"; do
+  echo "Waiting for nix-daemon to stop..."
+  sleep 1 # not great but generally the daemon closes very fast if you're not using it.
+done
+
+sudo /usr/libexec/PlistBuddy \
+  -c "Add :EnvironmentVariables:OBJC_DISABLE_INITIALIZE_FORK_SAFETY string YES" \ 
+  $NIX_DAEMON_PLIST || true
+sudo launchctl load -w $NIX_DAEMON_PLIST

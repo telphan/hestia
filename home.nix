@@ -16,10 +16,13 @@
     ripgrep
     exa
     nerdfonts
-    elixir
     _1password
     thefuck
+     
+    # Work
     postgresql
+    kind
+    asdfyu
   ];
 
   programs.bat = {

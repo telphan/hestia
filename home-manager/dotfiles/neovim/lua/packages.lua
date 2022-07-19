@@ -10,7 +10,7 @@ local packer = require('packer')
 packer.startup(function(use)
   use {'wbthomason/packer.nvim'}
 
-  use {"akinsho/toggleterm.nvim"}
+  use {'akinsho/toggleterm.nvim'}
   use {
     'kyazdani42/nvim-tree.lua',
     requires = {
@@ -48,6 +48,7 @@ packer.startup(function(use)
   use {
     'nvim-telescope/telescope-fzy-native.nvim'
   }
+  use {'jvgrootveld/telescope-zoxide'}
 
   -- Motions
   use 'ggandor/lightspeed.nvim'

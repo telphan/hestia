@@ -13,7 +13,6 @@
       "zoom"
       "paw"
       "wkhtmltopdf"
-
     ];
     brews = [
       # Work

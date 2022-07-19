@@ -76,15 +76,29 @@ require('telescope').setup{
       previewer = false,
       theme = "ivy",
     },
+    zoxide = {
+      disable_devicons = true,
+      previewer = false,
+      theme = "ivy",
+    },
+
   },
   extensions = {
     fzy_native = {
       override_generic_sorter = false,
       override_file_sorter = true,
-    }
+    },
+    zoxide = {
+      pickers = {
+        disable_devicons = true,
+        previewer = false,
+        theme = "ivy",
+      }
+    },
   }
 }
 require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('zoxide')
 
 require('nvim-tree').setup{}
 require("toggleterm").setup{

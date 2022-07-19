@@ -30,6 +30,7 @@
     #elixir
     #erlang
     postgresql
+    kind
   ];
 
   programs.bat = {

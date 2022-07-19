@@ -28,8 +28,8 @@
   };
 
   nix = {
-    allowedUsers = [ "telphan" ];
-    trustedUsers = [ "telphan" ];
+    allowedUsers = [ "telphan" "root" ];
+    trustedUsers = [ "telphan" "root" ];
     maxJobs = 10;
     buildCores = 10;
     package = pkgs.nix;
