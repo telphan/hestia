@@ -22,6 +22,7 @@
     terminal-notifier
     direnv
     gnupg
+    pinentry
     go_1_18
     zoxide
     fzy
