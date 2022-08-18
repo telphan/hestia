@@ -56,6 +56,9 @@ packer.startup(function(use)
   -- Entertainmnet
   use 'alec-gibson/nvim-tetris'
 
+  -- Git
+  use 'tpope/vim-fugitive'
+
   if Packer_bootstrap then
     packer.sync()
   end
