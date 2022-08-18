@@ -8,6 +8,7 @@
       "docker"
       "spotify"
       "slack"
+      "google-cloud-sdk"
 
       # Work
       "zoom"
