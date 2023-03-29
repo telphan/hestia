@@ -20,7 +20,15 @@ packer.startup(function(use)
 
   use {'projekt0n/github-nvim-theme'}
 
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
+
+  -- Coding
   use {'nvim-treesitter/nvim-treesitter'}
+
+  use 'mfussenegger/nvim-dap'
 
   use {'neovim/nvim-lspconfig'}
   use {'williamboman/nvim-lsp-installer'}
@@ -34,11 +42,6 @@ packer.startup(function(use)
 
   use {'hrsh7th/vim-vsnip'}
   use {'hrsh7th/cmp-vsnip'}
-
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
 
   -- Finder
   use {
@@ -59,6 +62,7 @@ packer.startup(function(use)
   -- Git
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
+
 
   if Packer_bootstrap then
     packer.sync()

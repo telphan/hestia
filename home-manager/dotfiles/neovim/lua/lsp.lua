@@ -1,10 +1,15 @@
 local servers = {
-  'elixirls',
-  'sumneko_lua',
-  'gopls',
+	'elixirls',
+	'sumneko_lua',
+	'gopls',
+	'golangci_lint_ls',
+	'lemminx',
+	'grammarly'
 }
 
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
+
+
 vim.api.nvim_set_keymap('n', '<leader>cd', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
@@ -19,52 +24,67 @@ vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>
 --  vim.api.nvim_set_keymabuffnr(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+vim.api.nvim_set_keymap('n', '<space><F5>', '<cmd>lua vim.dap.continue()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space><F10>', '<cmd>lua vim.dap.step_over()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space><F11>', '<cmd>lua vim.dap.step_into()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space><F12>', '<cmd>lua vim.dap.step_out()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>b', '<cmd>lua vim.dap.toggle_breakpoint()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>B', '<cmd>lua vim.dap.set_breakpoint(vim.fn.input(\'Breakpoint condition: \')<CR>'
+	, opts)
+vim.api.nvim_set_keymap('n', '<leader>lp',
+	'<cmd>lua vim.dap.set_breakpoint(nil, nil, vim.fn.input(\'Log point message: \')<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>dr', '<cmd>lua vim.dap.repl.open()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>dl', '<cmd>lua vim.dap.rul_last()<CR>', opts)
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local lsp_installer = require("nvim-lsp-installer")
 for _, name in pairs(servers) do
-  local server_is_found, server = lsp_installer.get_server(name)
-  if server_is_found and not server:is_installed() then
-    print("Installing " .. name)
-    server:install()
-  end
+	local server_is_found, server = lsp_installer.get_server(name)
+	if server_is_found and not server:is_installed() then
+		print("Installing " .. name)
+		server:install()
+	end
 end
+
 lsp_installer.on_server_ready(function(server)
-  local opts = {}
-  server:setup(opts)
+	local opts = {}
+	server:setup(opts)
 end)
 
 local lsp = require('lspconfig')
+-- vim.lsp.set_log_level("debug")
 
-lsp["elixirls"].setup{
-  on_attach = on_attach,
-  cmd = { vim.fn.stdpath("data") .. "/lsp_servers/elixir/elixir-ls/language_server.sh" },
-  root_dir = function(fname)
-    return lsp.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-  end,
-  capabilities = capabilities
+lsp["elixirls"].setup {
+	on_attach = on_attach,
+	cmd = { vim.fn.stdpath("data") .. "/lsp_servers/elixir/elixir-ls/language_server.sh" },
+	root_dir = function(fname)
+		return lsp.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+	end,
+	capabilities = capabilities
 }
 
-lsp["gopls"].setup{} 
+lsp["gopls"].setup {}
+lsp["grammarly"].setup { init_options = { clientId = "client_KAASAaye8ZbaDGp1Dwy5tc" } }
 
 local cmp = require('cmp')
 cmp.setup({
-  snippet = {
-    expand = function(args)
-      -- setting up snippet engine
-      -- this is for vsnip, if you're using other
-      -- snippet engine, please refer to the `nvim-cmp` guide
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  mapping = {
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-  },
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' }, -- For vsnip users.
-    { name = 'buffer' }
-  })
+	snippet = {
+		expand = function(args)
+			-- setting up snippet engine
+			-- this is for vsnip, if you're using other
+			-- snippet engine, please refer to the `nvim-cmp` guide
+			vim.fn["vsnip#anonymous"](args.body)
+		end,
+	},
+	mapping = {
+		['<CR>'] = cmp.mapping.confirm({ select = true }),
+	},
+	sources = cmp.config.sources({
+		{ name = 'nvim_lsp' },
+		{ name = 'vsnip' }, -- For vsnip users.
+		{ name = 'buffer' }
+	})
 })
 
 -- floating windows

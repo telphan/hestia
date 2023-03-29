@@ -26,7 +26,12 @@
     };
     ignores = [
       ".DS_Store"
-      "*,pyc"
+      "*.pyc"
+      "bash_utils"
+      "nix"
+      ".envrc"
+      "devenv.*"
+      ".direnv"
     ];
     delta = {
       enable = true;

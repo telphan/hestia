@@ -19,6 +19,8 @@
       # Work
       "nodejs"
       "erlang"
+      "openjdk"
+      "java"
       "elixir"
       "coreutils"
       "asdf"
@@ -26,6 +28,7 @@
       "node"
       "xz"
       "yarn"
+      "aichat"
     ];
     masApps = {
     };

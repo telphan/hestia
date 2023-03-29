@@ -11,6 +11,8 @@
   environment = {
     systemPackages = with pkgs; [
       docker-compose
+      cachix
+      (import (fetchTarball https://github.com/cachix/devenv/archive/v0.6.2.tar.gz)).default
     ];
     shells = [ pkgs.zsh ];
   };
