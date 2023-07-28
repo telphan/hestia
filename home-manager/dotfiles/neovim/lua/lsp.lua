@@ -1,14 +1,4 @@
-local servers = {
-	'elixirls',
-	'sumneko_lua',
-	'gopls',
-	'golangci_lint_ls',
-	'lemminx',
-	'grammarly'
-}
-
 local opts = { noremap = true, silent = true }
-
 
 vim.api.nvim_set_keymap('n', '<leader>cd', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
@@ -38,26 +28,24 @@ vim.api.nvim_set_keymap('n', '<leader>dl', '<cmd>lua vim.dap.rul_last()<CR>', op
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local lsp_installer = require("nvim-lsp-installer")
-for _, name in pairs(servers) do
-	local server_is_found, server = lsp_installer.get_server(name)
-	if server_is_found and not server:is_installed() then
-		print("Installing " .. name)
-		server:install()
-	end
-end
-
-lsp_installer.on_server_ready(function(server)
-	local opts = {}
-	server:setup(opts)
-end)
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "elixirls",
+    "sumneko_lua",
+    "gopls",
+    "golangci_lint_ls",
+    "lemminx",
+    "grammarly"
+  },
+})
 
 local lsp = require('lspconfig')
 -- vim.lsp.set_log_level("debug")
 
 lsp["elixirls"].setup {
 	on_attach = on_attach,
-	cmd = { vim.fn.stdpath("data") .. "/lsp_servers/elixir/elixir-ls/language_server.sh" },
+	cmd = { vim.fn.stdpath("data") .. "/mason/packages/elixir-ls/language_server.sh" },
 	root_dir = function(fname)
 		return lsp.util.find_git_ancestor(fname) or vim.loop.os_homedir()
 	end,

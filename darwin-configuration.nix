@@ -4,7 +4,6 @@
     ./preferences.nix
     ./brew.nix
     ./network.nix
-    ./modules/security/pam.nix
     ./apps.nix
   ];
 
@@ -30,10 +29,13 @@
   };
 
   nix = {
-    allowedUsers = [ "telphan" "root" ];
-    trustedUsers = [ "telphan" "root" ];
-    maxJobs = 10;
-    buildCores = 10;
+    settings = {
+      allowed-users = [ "telphan" "root" ];
+      trusted-users = [ "telphan" "root" ];
+      max-jobs = 10;
+      cores = 10;
+    };
+
     package = pkgs.nix;
   };
 

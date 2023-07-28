@@ -1,14 +1,16 @@
 { config, pkgs, ... }: {
   homebrew = {
     enable = true;
-    autoUpdate = true;
-    cleanup = "zap";
     extraConfig = ''
       cask_args appdir: "~/Applications"
     '';
     global = {
-      brewfile = true;
-      noLock = true;
+      brewfile =  true;
+    };
+    onActivation = {
+      upgrade = true;
+      cleanup = "zap";
+      autoUpdate = true;
     };
     taps = [
       "homebrew/cask"

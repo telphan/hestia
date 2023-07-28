@@ -30,8 +30,10 @@ packer.startup(function(use)
 
   use 'mfussenegger/nvim-dap'
 
+  use {'williamboman/mason.nvim'}
+  use {'williamboman/mason-lspconfig.nvim'}
   use {'neovim/nvim-lspconfig'}
-  use {'williamboman/nvim-lsp-installer'}
+
   use {'glepnir/lspsaga.nvim'}
 
   use {'hrsh7th/nvim-cmp'}
