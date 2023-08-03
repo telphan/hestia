@@ -3,6 +3,7 @@ require('keybindings')
 require('lsp')
 
 require('nvim-treesitter.configs').setup {
+	auto_install = true,
 	sync_install = false,
         ignore_install = { },
 	-- ensure_installed = "maintained", -- Only use parsers that are maintained
@@ -17,6 +18,8 @@ require('nvim-treesitter.configs').setup {
 	},
         ensure_installed = all
 }
+local parser_mapping = require("nvim-treesitter.parsers").filetype_to_parsername
+parser_mapping.xml = "html"
 
 require("github-theme").setup({
   options = {
@@ -129,6 +132,10 @@ require("toggleterm").setup{
 
 -- General config
 vim.wo.number = true
+vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.termguicolors = true
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx", })

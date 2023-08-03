@@ -12,7 +12,7 @@ vim.api.nvim_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 --  vim.api.nvim_set_keymabuffnr(bufnr, 'n', '<leader>cr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 --  vim.api.nvim_set_keymabuffnr(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
 
 vim.api.nvim_set_keymap('n', '<space><F5>', '<cmd>lua vim.dap.continue()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space><F10>', '<cmd>lua vim.dap.step_over()<CR>', opts)
