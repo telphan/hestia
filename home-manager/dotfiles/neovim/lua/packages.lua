@@ -45,6 +45,9 @@ packer.startup(function(use)
   use {'hrsh7th/vim-vsnip'}
   use {'hrsh7th/cmp-vsnip'}
 
+    -- Elixir
+    use({ "elixir-tools/elixir-tools.nvim", tag = "stable", requires = { "nvim-lua/plenary.nvim" }})
+
   -- Finder
   use {
     'nvim-telescope/telescope.nvim',

@@ -8,6 +8,7 @@
       key = "6A7156F77E2B2B94";
       signByDefault = true;
     };
+
     aliases = {
       prettylog = "...";
     };
@@ -26,6 +27,9 @@
       };
       init = {
         defaultBranch = "main";
+      };
+      net = {
+        "git-fetch-with-cli" = true;
       };
     };
     ignores = [
