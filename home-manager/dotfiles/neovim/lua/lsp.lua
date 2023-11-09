@@ -64,14 +64,17 @@ elixir.setup {
     -- default settings, use the `settings` function to override settings
     settings = elixirls.settings {
       dialyzerEnabled = true,
+      autoBuild = true,
       fetchDeps = false,
       enableTestLenses = true,
       suggestSpecs = false,
+      mixEnv = "dev"
     },
     on_attach = function(client, bufnr)
       vim.keymap.set("n", "<leader>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
       vim.keymap.set("n", "<leder>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
       vim.keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+      vim.keymap.set("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<cr>", map_opts)
     end
   }
 }

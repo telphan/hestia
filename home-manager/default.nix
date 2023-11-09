@@ -26,6 +26,7 @@
     go_1_18
     zoxide
     fzy
+    fd
 
     # Work
     #elixir

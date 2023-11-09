@@ -11,12 +11,7 @@ packer.startup(function(use)
   use {'wbthomason/packer.nvim'}
 
   use {'akinsho/toggleterm.nvim'}
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons',
-    },
-  }
+  use {'kyazdani42/nvim-web-devicons'}
 
   use {'projekt0n/github-nvim-theme'}
 
@@ -51,12 +46,14 @@ packer.startup(function(use)
   -- Finder
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    requires = { 
+      {'nvim-lua/plenary.nvim'},
+      {'nvim-telescope/telescope-live-grep-args.nvim'},
+      {'nvim-telescope/telescope-fzy-native.nvim'},
+      {'jvgrootveld/telescope-zoxide'},
+      {'nvim-telescope/telescope-file-browser.nvim'}
+    }
   }
-  use {
-    'nvim-telescope/telescope-fzy-native.nvim'
-  }
-  use {'jvgrootveld/telescope-zoxide'}
 
   -- Motions
   use 'ggandor/lightspeed.nvim'

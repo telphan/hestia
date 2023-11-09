@@ -42,15 +42,14 @@ require('lualine').setup {
   }
 }
 
+local lga_actions = require("telescope-live-grep-args.actions")
+
 require('telescope').setup{
   defaults = {
     -- Default configuration for telescope goes here:
     -- config_key = value,
     mappings = {
       i = {
-        -- map actions.which_key to <C-h> (default: <C-/>)
-        -- actions.which_key shows the mappings for your picker,
-        -- e.g. git_{create, delete, ...}_branch for the git_branches picker
         ["<C-h>"] = "which_key"
       }
     }
@@ -61,14 +60,14 @@ require('telescope').setup{
       previewer = false,
       theme = "ivy",
     },
-    file_browser = {
-      disable_devicons = true,
-      previewer = false,
-      theme = "ivy",
-    },
     live_grep = {
       disable_devicons = true,
-      previewer = false,
+      previewer = true,
+      theme = "ivy",
+    },
+    grep_string = {
+      disable_devicons = true,
+      previewer = true,
       theme = "ivy",
     },
     buffers = {
@@ -80,8 +79,7 @@ require('telescope').setup{
       disable_devicons = true,
       previewer = false,
       theme = "ivy",
-    },
-
+    }
   },
   extensions = {
     fzy_native = {
@@ -95,12 +93,39 @@ require('telescope').setup{
         theme = "ivy",
       }
     },
+    live_grep_args = {
+      auto_quoting = true,
+      mappings = {
+        i = {
+          ["<C-k>"] = lga_actions.quote_prompt(),
+          ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+        },
+      },
+      disable_devicons = true,
+      previewer = true,
+      theme = "ivy"
+    },
+    file_browser = {
+      disable_devicons = false,
+      previewer = true,
+      theme = "ivy",
+      hijack_netrw = true,
+      mappings = {
+        ["i"] = {
+          ["<C-f>"] = require('custom_telescope').ts_select_dir_for_grep,
+        },
+        ["n"] = {
+          ["<C-f>"] = require('custom_telescope').ts_select_dir_for_grep,
+        }
+      }
+    }
   }
 }
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('zoxide')
+require('telescope').load_extension('live_grep_args')
+require('telescope').load_extension('file_browser')
 
-require('nvim-tree').setup{}
 require("toggleterm").setup{
   size = function(term)
     if term.direction == "horizontal" then

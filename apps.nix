@@ -14,6 +14,8 @@
       "zoom"
       "paw"
       "wkhtmltopdf"
+
+      "dteoh-devdocs"
     ];
     brews = [
       # Work
