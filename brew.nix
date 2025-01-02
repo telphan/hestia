@@ -13,8 +13,6 @@
       autoUpdate = true;
     };
     taps = [
-      "homebrew/cask"
-      "homebrew/core"
       "homebrew/services"
     ];
   };

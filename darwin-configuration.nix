@@ -16,7 +16,6 @@
     shells = [ pkgs.zsh ];
   };
 
-  services.activate-system.enable = true;
   services.nix-daemon.enable = true;
   programs.nix-index.enable = true;
   security.pam.enableSudoTouchIdAuth = true;

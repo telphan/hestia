@@ -4,13 +4,16 @@
     enable = true;
     autocd = true;
     dotDir = ".config/zsh";
-    enableAutosuggestions = true;
     enableCompletion = true;
+
+    autosuggestion = {
+      enable = true;
+    };
     shellAliases = {
-      sl = "exa";
-      ls = "exa";
-      l = "exa -l";
-      la = "exa -la";
+      sl = "eza";
+      ls = "eza";
+      l = "eza -l";
+      la = "eza -la";
       ip = "ip --color=auto";
       g = "git";
       ga = "git add";

@@ -15,15 +15,15 @@
     jq
     neovim
     ripgrep
-    exa
+    eza
     nerdfonts
     _1password
     thefuck
     terminal-notifier
     direnv
     gnupg
-    pinentry
-    go_1_18
+    #pinentry
+    go
     zoxide
     fzy
     fd
@@ -75,5 +75,5 @@
 #    '';
 #  };
 
-  home.stateVersion = "21.11";
+  home.stateVersion = "24.05";
 }

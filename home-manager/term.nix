@@ -39,7 +39,7 @@ in
 	path = "/terminal/alacritty/github_dark_default.yml";
       }).colors;
 
-      key_bindings = [
+      keyboard.bindings = [
         { key = "Key3";     mods = "Alt";     chars = "#"; }
       ];
     };
