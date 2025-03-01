@@ -20,13 +20,19 @@ packer.startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
 
+  use { 'rktjmp/lush' }
+
+  use { 'OXY2DEV/markview' }
+
   -- Coding
   use {'nvim-treesitter/nvim-treesitter', tag = 'v0.9.3'}
+  use {'nvim-treesitter/nvim-treesitter-textobjects'}
 
   use 'mfussenegger/nvim-dap'
 
   use {'williamboman/mason.nvim'}
   use {'williamboman/mason-lspconfig.nvim'}
+
   use {'neovim/nvim-lspconfig'}
 
   use {'glepnir/lspsaga.nvim'}
@@ -57,9 +63,6 @@ packer.startup(function(use)
 
   -- Motions
   use 'ggandor/lightspeed.nvim'
-
-  -- Entertainmnet
-  use 'alec-gibson/nvim-tetris'
 
   -- Git
   use 'tpope/vim-fugitive'

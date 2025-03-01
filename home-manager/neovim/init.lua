@@ -3,20 +3,29 @@ require('keybindings')
 require('lsp')
 
 require('nvim-treesitter.configs').setup {
-	auto_install = true,
-	sync_install = true,
-        ignore_install = { },
-	-- ensure_installed = "maintained", -- Only use parsers that are maintained
-
-	highlight = { -- enable highlighting
-	  enable = true,
-	  disable = {},
-	},
-	indent = {
-	  enable = false, -- default is disabled anyways
-	  disable = {},
-	},
-        ensure_installed = all
+  auto_install = true,
+  sync_install = true,
+  ignore_install = { },
+  -- ensure_installed = "maintained", -- Only use parsers that are maintained
+  
+  highlight = { -- enable highlighting
+    enable = true,
+    disable = {},
+  },
+  indent = {
+    enable = false, -- default is disabled anyways
+    disable = {},
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<M-o>",
+      scope_incremental = "<M-O>",
+      node_incremental = "<M-o>",
+      node_decremental = "<M-i>",
+    },
+  },
+  ensure_installed = all
 }
 
 require("github-theme").setup({

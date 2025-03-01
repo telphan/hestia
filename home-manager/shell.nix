@@ -9,6 +9,7 @@
     autosuggestion = {
       enable = true;
     };
+
     shellAliases = {
       sl = "eza";
       ls = "eza";
@@ -38,13 +39,12 @@
       AGKOZAK_MULTILINE=0
       AGKOZAK_PROMPT_CHAR=( ❯ ❯ ❮ )
       PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-      eval $(thefuck --alias)
       eval "$(/opt/homebrew/bin/brew shellenv)"
       eval "$(direnv hook zsh)"
       eval "$(zoxide init zsh)"
       zle && { zle reset-prompt; zle -R }
       autopair-init
-                              '';
+    '';
 
     plugins = with pkgs; [
       {

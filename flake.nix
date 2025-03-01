@@ -2,8 +2,10 @@
   description = "Ted's Nix System Configuration";
 
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs = {
+      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+      #url = "github:NixOS/nixpkgs/nixos-24.11";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,8 +53,8 @@
 
             nix = {
               settings = {
-                allowed-users = [ "telphan" "root" ];
-                trusted-users = [ "telphan" "root" ];
+                allowed-users = [ "root" ];
+                trusted-users = [ "root" ];
                 max-jobs = 10;
                 cores = 10;
 		experimental-features = [ "nix-command" "flakes" ];
@@ -63,9 +65,9 @@
       };
     };
     darwinConfigurations = {
-      "AMR22" = darwinSystem {
+      "Teds-MacBook-Pro" = darwinSystem {
         user = "telphan";
-        arch = "x86_64-darwin";
+        arch = "aarch64-darwin";
       };
     };
   };

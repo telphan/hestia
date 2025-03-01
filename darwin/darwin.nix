@@ -1,32 +1,26 @@
-{ config, pkgs, ... }: 
+{ pkgs, lib, ... }: 
 
 {
   nix.enable = false;
+
+  system.stateVersion = 4;
 
   environment = {
     darwinConfig = "$HOME/repos/hestia/darwin";
     systemPackages = with pkgs; [
       docker-compose
       cachix
-      (import (fetchTarball https://github.com/cachix/devenv/archive/v0.6.2.tar.gz)).default
     ];
     shells = [ pkgs.zsh ];
   };
 
   security = {
     pam = {
-      enableSudoTouchIdAuth = true;
+      services.sudo_local.touchIdAuth = true;
     };
   };
 
   services = {
-    nix-index = {
-      enable = true;
-    };
-
-    nix-daemon = {
-      enable = true;
-    };
     aerospace = {
       enable = true;
 
@@ -90,35 +84,43 @@
 
   programs = {
     gnupg.agent.enable = true;
-    zsh.enable = true;  # default shell on catalina
+    zsh  = {
+      enable = true;  # default shell on catalina
+    };
   };
 
   fonts.packages = [
     pkgs.atkinson-hyperlegible
     pkgs.jetbrains-mono
-  ];
+  ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
 
   homebrew = {
     enable = true;
+
     extraConfig = ''
       cask_args appdir: "~/Applications"
     '';
+
+    brewPrefix = "/opt/homebrew/bin";
+
     global = {
       brewfile =  true;
     };
+
     onActivation = {
       upgrade = true;
       cleanup = "zap";
       autoUpdate = true;
     };
+
     taps = [
       "homebrew/services"
     ];
+
     casks = [
       "alacritty"
       "1password"
-      "amethyst"
       "docker"
       "spotify"
       "slack"
@@ -143,6 +145,7 @@
       "xz"
       "yarn"
     ];
+
     masApps = {
     };
   };
@@ -195,12 +198,12 @@
         NSAutomaticSpellingCorrectionEnabled = false;
         NSNavPanelExpandedStateForSaveMode = true;
         NSNavPanelExpandedStateForSaveMode2 = true;
-        _HIHideMenuBar = true;
+        _HIHideMenuBar = false;
       };
     };
     keyboard = {
       enableKeyMapping = true;
       remapCapsLockToControl = true;
     };
-  }
+  };
 }

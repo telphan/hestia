@@ -4,7 +4,6 @@
     ./git.nix
     ./shell.nix
     ./term.nix
-    ./neovim
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -17,7 +16,6 @@
     neovim
     ripgrep
     eza
-    nerdfonts
     _1password
     terminal-notifier
     direnv

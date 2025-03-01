@@ -5,6 +5,8 @@ local function nkeymap(key, map)
 	keymap('n', key, map, opts)
 end
 
+nkeymap('<leader>M', ':Markview toggle<cr>', {noremap = true, silent = true, desc = "Toggle Markview"})
+
 nkeymap('<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>")
 nkeymap('<leader>fr', "<cmd>lua require('telescope.builtin').resume()<cr>")
 nkeymap('<leader>fe', "<cmd>lua require('telescope').extensions.file_browser.file_browser()<cr>")
