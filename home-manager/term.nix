@@ -30,7 +30,7 @@ in
 
       window.decorations = "buttonless";
 
-      shell.program = "${pkgs.zsh}/bin/zsh";
+      terminal.shell = "${pkgs.zsh}/bin/zsh";
 
       cursor.style = "Beam";
       colors = (yamlThemeFromGithub {

@@ -1,18 +1,17 @@
 { config, pkgs, ... }: {
   homebrew = {
     casks = [
-      "qutebrowser"
+      # "qutebrowser"
       "alacritty"
       "1password"
       "amethyst"
       "docker"
       "spotify"
       "slack"
-      "google-cloud-sdk"
 
       # Work
       "zoom"
-      "paw"
+      "rapidapi"
       "wkhtmltopdf"
 
       "dteoh-devdocs"
@@ -30,7 +29,6 @@
       "node"
       "xz"
       "yarn"
-      "aichat"
     ];
     masApps = {
     };

@@ -4,7 +4,7 @@ require('lsp')
 
 require('nvim-treesitter.configs').setup {
 	auto_install = true,
-	sync_install = false,
+	sync_install = true,
         ignore_install = { },
 	-- ensure_installed = "maintained", -- Only use parsers that are maintained
 
@@ -18,8 +18,6 @@ require('nvim-treesitter.configs').setup {
 	},
         ensure_installed = all
 }
-local parser_mapping = require("nvim-treesitter.parsers").filetype_to_parsername
-parser_mapping.xml = "html"
 
 require("github-theme").setup({
   options = {

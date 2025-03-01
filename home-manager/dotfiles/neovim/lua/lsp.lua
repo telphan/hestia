@@ -35,7 +35,6 @@ require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = {
     "elixirls",
-    "sumneko_lua",
     "gopls",
     "golangci_lint_ls",
     "lemminx",
@@ -81,6 +80,7 @@ elixir.setup {
 
 lsp["gopls"].setup {}
 lsp["grammarly"].setup { init_options = { clientId = "client_KAASAaye8ZbaDGp1Dwy5tc" } }
+lsp["ts_ls"].setup {}
 
 local cmp = require('cmp')
 cmp.setup({

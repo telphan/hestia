@@ -21,7 +21,7 @@ packer.startup(function(use)
   }
 
   -- Coding
-  use {'nvim-treesitter/nvim-treesitter'}
+  use {'nvim-treesitter/nvim-treesitter', tag = 'v0.9.3'}
 
   use 'mfussenegger/nvim-dap'
 
@@ -40,8 +40,8 @@ packer.startup(function(use)
   use {'hrsh7th/vim-vsnip'}
   use {'hrsh7th/cmp-vsnip'}
 
-    -- Elixir
-    use({ "elixir-tools/elixir-tools.nvim", tag = "stable", requires = { "nvim-lua/plenary.nvim" }})
+  -- Elixir
+  use({ "elixir-tools/elixir-tools.nvim", tag = "stable", requires = { "nvim-lua/plenary.nvim" }})
 
   -- Finder
   use {

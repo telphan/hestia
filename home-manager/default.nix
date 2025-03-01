@@ -33,6 +33,8 @@
     #erlang
     postgresql
     kind
+
+   (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
   ];
 
   programs.bat = {
