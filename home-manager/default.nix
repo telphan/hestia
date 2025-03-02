@@ -4,6 +4,7 @@
     ./git.nix
     ./shell.nix
     ./term.nix
+    ./sketchybar/default.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
