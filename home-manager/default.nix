@@ -20,7 +20,7 @@
     neovim
     ripgrep
     eza
-    _1password
+    _1password-cli
     terminal-notifier
     direnv
     gnupg
