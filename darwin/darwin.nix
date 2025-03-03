@@ -207,6 +207,11 @@
       "wkhtmltopdf"
 
       "dteoh-devdocs"
+
+      # Fonts
+      "sf-symbols"
+      "font-sf-mono"
+      "font-sf-pro"
     ];
 
     brews = [
@@ -221,6 +226,9 @@
       "node"
       "xz"
       "yarn"
+
+      "switchaudio-osx"
+      "nowplaying-cli"
     ];
 
     masApps = {
