@@ -13,6 +13,8 @@
   home.username = "telphan";
   home.homeDirectory = "/Users/telphan";
   home.packages = with pkgs; [
+    lua54Packages.lua
+
     gh
     jq
     neovim
@@ -34,7 +36,7 @@
 
     postgresql
 
-   (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
+    (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
   ];
 
   programs.bat = {
