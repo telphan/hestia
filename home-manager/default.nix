@@ -5,6 +5,7 @@
     ./shell.nix
     ./term.nix
     ./sketchybar/default.nix
+    ./karabiner/default.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

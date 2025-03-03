@@ -82,50 +82,46 @@
         mode = {
           main = {
             binding = {
-              alt-y = "layout tiles horizontal vertical";
-              alt-t = "layout accordion horizontal vertical";
-              alt-h = "focus left";
-              alt-j = "focus down";
-              alt-k = "focus up";
-              alt-l = "focus right";
-              alt-shift-h = "move left";
-              alt-shift-j = "move down";
-              alt-shift-k = "move up";
-              alt-shift-l = "move right";
-              alt-ctrl-h = "join-with left";
-              alt-ctrl-j = "join-with down";
-              alt-ctrl-k = "join-with up";
-              alt-ctrl-l = "join-with right";
-              alt-minus = "resize smart -100";
-              alt-equal = "resize smart +100";
-              alt-1 = "workspace 1";
-              alt-2 = "workspace 2";
-              alt-3 = "workspace 3";
-              alt-4 = "workspace 4";
-              alt-5 = "workspace 5";
-              alt-6 = "workspace 6";
-              alt-7 = "workspace 7";
-              alt-8 = "workspace 8";
-              alt-9 = "workspace 9";
-              alt-0 = "workspace 0";
-              alt-shift-1 = "move-node-to-workspace 1";
-              alt-shift-2 = "move-node-to-workspace 2";
-              alt-shift-3 = "move-node-to-workspace 3";
-              alt-shift-4 = "move-node-to-workspace 4";
-              alt-shift-5 = "move-node-to-workspace 5";
-              alt-shift-6 = "move-node-to-workspace 6";
-              alt-shift-7 = "move-node-to-workspace 7";
-              alt-shift-8 = "move-node-to-workspace 8";
-              alt-shift-9 = "move-node-to-workspace 9";
-              alt-shift-0 = "move-node-to-workspace 0";
-              alt-tab = "workspace-back-and-forth";
-              alt-shift-tab = "move-node-to-monitor --wrap-around next";
-              alt-shift-semicolon = "mode service";
-	      alt-enter = ''exec-and-forget osascript -e \'
+              cmd-alt-ctrl-y = "layout tiles horizontal vertical";
+              cmd-alt-ctrl-t = "layout accordion horizontal vertical";
+              cmd-alt-ctrl-h = "focus left";
+              cmd-alt-ctrl-j = "focus down";
+              cmd-alt-ctrl-k = "focus up";
+              cmd-alt-ctrl-l = "focus right";
+              cmd-alt-ctrl-shift-h = "move left";
+              cmd-alt-ctrl-shift-j = "move down";
+              cmd-alt-ctrl-shift-k = "move up";
+              cmd-alt-ctrl-shift-l = "move right";
+              cmd-alt-ctrl-minus = "resize smart -100";
+              cmd-alt-ctrl-equal = "resize smart +100";
+              cmd-alt-ctrl-1 = "workspace 1";
+              cmd-alt-ctrl-2 = "workspace 2";
+              cmd-alt-ctrl-3 = "workspace 3";
+              cmd-alt-ctrl-4 = "workspace 4";
+              cmd-alt-ctrl-5 = "workspace 5";
+              cmd-alt-ctrl-6 = "workspace 6";
+              cmd-alt-ctrl-7 = "workspace 7";
+              cmd-alt-ctrl-8 = "workspace 8";
+              cmd-alt-ctrl-9 = "workspace 9";
+              cmd-alt-ctrl-0 = "workspace 0";
+              cmd-alt-ctrl-shift-1 = "move-node-to-workspace 1";
+              cmd-alt-ctrl-shift-2 = "move-node-to-workspace 2";
+              cmd-alt-ctrl-shift-3 = "move-node-to-workspace 3";
+              cmd-alt-ctrl-shift-4 = "move-node-to-workspace 4";
+              cmd-alt-ctrl-shift-5 = "move-node-to-workspace 5";
+              cmd-alt-ctrl-shift-6 = "move-node-to-workspace 6";
+              cmd-alt-ctrl-shift-7 = "move-node-to-workspace 7";
+              cmd-alt-ctrl-shift-8 = "move-node-to-workspace 8";
+              cmd-alt-ctrl-shift-9 = "move-node-to-workspace 9";
+              cmd-alt-ctrl-shift-0 = "move-node-to-workspace 0";
+              cmd-alt-ctrl-tab = "workspace-back-and-forth";
+              cmd-alt-ctrl-shift-tab = "move-node-to-monitor --wrap-around next";
+              cmd-alt-ctrl-shift-semicolon = "mode service";
+	      cmd-alt-ctrl-enter = ''exec-and-forget osascript -e '
                 tell application "Alacritty"
                 do script
                 activate
-              end tell\'
+              end tell'
               '';
 	      alt-cmd-shift-r = "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --reload && aerospace reload-config";
 
@@ -199,6 +195,7 @@
     ];
 
     casks = [
+      "karabiner-elements"
       "alacritty"
       "1password"
       "docker"
