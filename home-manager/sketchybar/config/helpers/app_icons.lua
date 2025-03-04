@@ -196,6 +196,7 @@ return {
     ["Setapp"] = ":setapp:",
     ["TIDAL"] = ":tidal:",
     ["Miro"] = ":miro:",
+    ["Motion"] = ":calendar:",
     ["Messages"] = ":messages:",
     ["信息"] = ":messages:",
     ["Nachrichten"] = ":messages:",

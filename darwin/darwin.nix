@@ -34,6 +34,20 @@
         accordion-padding = 4;
 	on-window-detected = [
 	  {
+            "if" = {
+	      app-id = "com.electron.motion";
+	    };
+
+	    run = "move-node-to-workspace 4";
+	  }
+	  {
+            "if" = {
+	      app-id = "md.obsidian";
+	    };
+
+	    run = "move-node-to-workspace 5";
+	  }
+	  {
 	    "if" = {
 	    	app-id = "company.thebrowser.Browser";
 	    };
@@ -175,6 +189,7 @@
 
     global = {
       brewfile =  true;
+      noLock = null;
     };
 
     onActivation = {
@@ -188,6 +203,8 @@
     ];
 
     casks = [
+      "motion"
+      "obsidian"
       "karabiner-elements"
       "alacritty"
       "1password"
