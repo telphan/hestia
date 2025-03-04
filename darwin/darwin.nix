@@ -57,12 +57,6 @@
 	    };
 	    run = "move-node-to-workspace 9";
 	  }
-          {
-	    "if" = {
-	    	app-id = "us.zoom.xos";
-	    };
-	    run = "move-node-to-workspace 0";
-	  }
 	];
         on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
         workspace-to-monitor-force-assignment = {
@@ -103,7 +97,6 @@
               cmd-alt-ctrl-7 = "workspace 7";
               cmd-alt-ctrl-8 = "workspace 8";
               cmd-alt-ctrl-9 = "workspace 9";
-              cmd-alt-ctrl-0 = "workspace 0";
               cmd-alt-ctrl-shift-1 = "move-node-to-workspace 1";
               cmd-alt-ctrl-shift-2 = "move-node-to-workspace 2";
               cmd-alt-ctrl-shift-3 = "move-node-to-workspace 3";
@@ -113,26 +106,26 @@
               cmd-alt-ctrl-shift-7 = "move-node-to-workspace 7";
               cmd-alt-ctrl-shift-8 = "move-node-to-workspace 8";
               cmd-alt-ctrl-shift-9 = "move-node-to-workspace 9";
-              cmd-alt-ctrl-shift-0 = "move-node-to-workspace 0";
               cmd-alt-ctrl-tab = "workspace-back-and-forth";
               cmd-alt-ctrl-shift-tab = "move-node-to-monitor --wrap-around next";
-              cmd-alt-ctrl-shift-semicolon = "mode service";
+              cmd-alt-ctrl-shift-semicolon = [
+	        "mode service"
+		"exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_enter_service_mode"
+	      ];
 	      cmd-alt-ctrl-enter = ''exec-and-forget osascript -e '
                 tell application "Alacritty"
                 do script
                 activate
               end tell'
               '';
-	      alt-cmd-shift-r = "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --reload && aerospace reload-config";
-
             };
           };
           service = {
             binding = {
-              esc = [ "reload-config" "mode main" ];
-              r = [ "flatten-workspace-tree" "mode main" ];
-              f = [ "layout floating tiling" "mode main" ];
-              backspace = [ "close-all-windows-but-current" "mode main" ];
+              esc = [ "reload-config" "mode main" "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_leave_service_mode"];
+              r = [ "flatten-workspace-tree" "mode main" "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_leave_service_mode"];
+              f = [ "layout floating tiling" "mode main" "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_leave_service_mode"];
+              backspace = [ "close-all-windows-but-current" "mode main" "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_leave_service_mode"];
             };
           };
         };
@@ -144,7 +137,7 @@
         ];
 
 	on-focus-changed = [
-          "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger front_app_switched"
+          "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_focus_change"
         ];
       };
     };
@@ -154,7 +147,7 @@
       style = "round";
       width = 3.0;
       hidpi = true;
-      active_color = "0xffe2e2e3";
+      active_color = "0xff9ed072";
       inactive_color = "0xff414550";
     };
   };
