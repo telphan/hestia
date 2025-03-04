@@ -4,67 +4,35 @@ local settings = require("settings")
 
 local popup_width = 250
 
-local volume_percent = sbar.add("item", "widgets.volume1", {
-    position = "right",
-    icon = {
-        drawing = false
-    },
-    label = {
-        string = "??%",
-        padding_left = -1,
-        font = {
-            family = settings.font.numbers
-        }
-    }
-})
-
 local volume_icon = sbar.add("item", "widgets.volume2", {
     position = "right",
-    padding_right = -1,
     icon = {
         string = icons.volume._100,
-        width = 0,
-        align = "left",
-        color = colors.grey,
-        font = {
-            style = settings.font.style_map["Regular"],
-            size = 14.0
-        }
+	width = 5,
+        align = "right",
+        color = colors.transparent,
+	padding_right = 10
     },
     label = {
-        width = 25,
-        align = "left",
-        font = {
-            style = settings.font.style_map["Regular"],
-            size = 14.0
-        }
-    }
-})
-
-local volume_bracket = sbar.add("bracket", "widgets.volume.bracket", {volume_icon.name, volume_percent.name}, {
-    background = {
-        color = colors.bg1,
-        border_color = colors.rainbow[#colors.rainbow - 3],
-        border_width = 1
+    	width = 30,
+    	align = "left",
+	padding_right = 10,
     },
     popup = {
         align = "center"
     }
 })
 
-sbar.add("item", "widgets.volume.padding", {
-    position = "right",
-    width = settings.group_paddings
-})
+
 
 local volume_slider = sbar.add("slider", popup_width, {
-    position = "popup." .. volume_bracket.name,
+    position = "popup." .. volume_icon.name,
     slider = {
         highlight_color = colors.blue,
         background = {
             height = 6,
             corner_radius = 3,
-            color = colors.bg2
+            color = colors.transparent
         },
         knob = {
             string = "􀀁",
@@ -72,14 +40,14 @@ local volume_slider = sbar.add("slider", popup_width, {
         }
     },
     background = {
-        color = colors.bg1,
+        color = colors.transparent,
         height = 2,
         y_offset = -20
     },
     click_script = 'osascript -e "set volume output volume $PERCENTAGE"'
 })
 
-volume_percent:subscribe("volume_change", function(env)
+volume_icon:subscribe("volume_change", function(env)
     local volume = tonumber(env.INFO)
     local icon = icons.volume._0
     if volume > 60 then
@@ -100,9 +68,7 @@ volume_percent:subscribe("volume_change", function(env)
     volume_icon:set({
         label = icon
     })
-    volume_percent:set({
-        label = lead .. volume .. "%"
-    })
+
     volume_slider:set({
         slider = {
             percentage = volume
@@ -111,11 +77,11 @@ volume_percent:subscribe("volume_change", function(env)
 end)
 
 local function volume_collapse_details()
-    local drawing = volume_bracket:query().popup.drawing == "on"
+    local drawing = volume_icon:query().popup.drawing == "on"
     if not drawing then
         return
     end
-    volume_bracket:set({
+    volume_icon:set({
         popup = {
             drawing = false
         }
@@ -130,9 +96,9 @@ local function volume_toggle_details(env)
         return
     end
 
-    local should_draw = volume_bracket:query().popup.drawing == "off"
+    local should_draw = volume_icon:query().popup.drawing == "off"
     if should_draw then
-        volume_bracket:set({
+        volume_icon:set({
             popup = {
                 drawing = true
             }
@@ -150,7 +116,7 @@ local function volume_toggle_details(env)
                         color = colors.white
                     end
                     sbar.add("item", "volume.device." .. counter, {
-                        position = "popup." .. volume_bracket.name,
+                        position = "popup." .. volume_icon.name,
                         width = popup_width,
                         align = "center",
                         label = {
@@ -178,7 +144,6 @@ end
 
 volume_icon:subscribe("mouse.clicked", volume_toggle_details)
 volume_icon:subscribe("mouse.scrolled", volume_scroll)
-volume_percent:subscribe("mouse.clicked", volume_toggle_details)
-volume_percent:subscribe("mouse.exited.global", volume_collapse_details)
-volume_percent:subscribe("mouse.scrolled", volume_scroll)
-
+volume_icon:subscribe("mouse.clicked", volume_toggle_details)
+volume_icon:subscribe("mouse.exited.global", volume_collapse_details)
+volume_icon:subscribe("mouse.scrolled", volume_scroll)

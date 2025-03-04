@@ -18,7 +18,7 @@ return {
         }
     },
     bar = {
-        height = 30,
+        height = 35,
         padding = {
             x = 10,
             y = 0
@@ -27,12 +27,12 @@ return {
     },
     items = {
         height = 26,
-        gap = 5,
+        gap = 2,
         padding = {
-            right = 16,
-            left = 12,
+            right = 10,
+            left = 8,
             top = 0,
-            bottom = 0
+            bottom = 0 
         },
         default_color = function(workspace)
             return colors.white
@@ -58,5 +58,11 @@ return {
             ["Heavy"] = "Bold",
             ["Black"] = "ExtraBold"
         }
+    },
+    widgets = {
+	border = {
+	   width  = 0
+	},
     }
 }
+

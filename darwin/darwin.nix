@@ -64,12 +64,12 @@
           "2" = ["secondary" "main"];
         };
 	gaps = {
-          inner.horizontal = 4;
-          inner.vertical = 4;
-          outer.left = 4;
-          outer.bottom = 4;
-          outer.top = 4;
-          outer.right = 4;
+          inner.horizontal = 6;
+          inner.vertical = 6;
+          outer.left = 6;
+          outer.bottom = 6;
+          outer.top = 6;
+          outer.right = 6;
        };
 
          
@@ -145,7 +145,7 @@
     jankyborders = {
       enable = true;
       style = "round";
-      width = 3.0;
+      width = 3.5;
       hidpi = true;
       active_color = "0xff9ed072";
       inactive_color = "0xff414550";
@@ -266,6 +266,11 @@
         DisableConsoleAccess = true;
       };
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
+      CustomUserPreferences = {
+        "com.apple.WindowManager" = {
+           EnableTiledWindowMargins = 0;
+	};
+      };
       NSGlobalDomain = {
         AppleInterfaceStyle = "Dark"; # set dark mode
         AppleKeyboardUIMode = 3;
