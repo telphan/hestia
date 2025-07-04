@@ -10,6 +10,7 @@
     systemPackages = with pkgs; [
       docker-compose
       cachix
+      asdf-vm
     ];
     shells = [ pkgs.zsh ];
   };
@@ -208,9 +209,9 @@
       "karabiner-elements"
       "alacritty"
       "1password"
-      "docker"
       "spotify"
       "slack"
+      "docker-desktop"
 
       "zoom"
       "rapidapi"
@@ -225,15 +226,10 @@
     ];
 
     brews = [
-      "nodejs"
-      "erlang"
       "openjdk"
       "java"
-      "elixir"
       "coreutils"
-      "asdf"
       "macos-term-size"
-      "node"
       "xz"
       "yarn"
 
