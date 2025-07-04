@@ -235,6 +235,10 @@
 
       "switchaudio-osx"
       "nowplaying-cli"
+
+      "openssl@3"
+      "unixodbc"
+      "wxwidgets"
     ];
 
     masApps = {
