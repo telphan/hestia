@@ -204,7 +204,7 @@
     ];
 
     casks = [
-      "motion"
+      "zed"
       "obsidian"
       "karabiner-elements"
       "alacritty"
