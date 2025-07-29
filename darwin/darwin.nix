@@ -1,5 +1,31 @@
 { pkgs, lib, ... }: 
+let
+  aerospace = pkgs.stdenv.mkDerivation rec {
+    pname = "aerospace";
+    version = "0.19.2-Beta";
 
+    src = pkgs.fetchzip {
+      url = "https://github.com/nikitabobko/AeroSpace/releases/download/v${version}/AeroSpace-v${version}.zip";
+      sha256 = "sha256-6RyGw84GhGwULzN0ObjsB3nzRu1HYQS/qoCvzVWOYWQ=";
+    };
+
+    installPhase = ''
+      mkdir -p $out/Applications
+      cp -r AeroSpace.app $out/Applications/
+      mkdir -p $out/bin
+
+      cp bin/aerospace $out/bin/
+      chmod +x $out/bin/aerospace
+    '';
+
+    meta = with lib; {
+      description = "AeroSpace is an i3-like tiling window manager for macOS";
+      homepage = "https://github.com/nikitabobko/AeroSpace";
+      license = licenses.mit;
+      platforms = platforms.darwin;
+    };
+  };
+in
 {
   nix.enable = false;
 
@@ -30,6 +56,8 @@
 
     aerospace = {
       enable = true;
+
+      package = aerospace;
 
       settings = {
         accordion-padding = 4;
