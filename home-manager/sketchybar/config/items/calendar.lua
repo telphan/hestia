@@ -1,14 +1,14 @@
 local settings = require("settings")
 local colors = require("colors")
 
-sbar.add("alias", "MeetingBar", {
- position = "right",
- background = {
-     color = colors.transparent,
-     border_color = colors.transparent,
-     border_width = settings.widgets.border.width
- }
-})
+--sbar.add("alias", "MeetingBar", {
+-- position = "right",
+-- background = {
+--     color = colors.transparent,
+--     border_color = colors.transparent,
+--     border_width = settings.widgets.border.width
+-- }
+--})
 
 ---- Padding item required because of bracket
 --sbar.add("item", {
