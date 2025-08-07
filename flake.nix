@@ -28,7 +28,7 @@
           ./darwin/darwin.nix
           home-manager.darwinModules.home-manager
           {
-            _module.args = { inherit inputs; };
+            _module.args = { inherit inputs user; };
             home-manager = {
               users.${user} = import ./home-manager;
 

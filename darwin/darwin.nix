@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: 
+{ pkgs, lib, user, ... }: 
 let
   aerospace = pkgs.stdenv.mkDerivation rec {
     pname = "aerospace";
@@ -274,6 +274,8 @@ in
   };
 
   system = {
+    primaryUser = user;
+
     defaults = {
       dock = {
         autohide = true;
@@ -300,17 +302,14 @@ in
         TrackpadThreeFingerDrag = true;
         Dragging = true;
       };
-      # Apple firewall config:
-      alf = {
-        globalstate = 2;
-        loggingenabled = 0;
-        stealthenabled = 1;
-      };
+
       loginwindow = {
         GuestEnabled = false;
         DisableConsoleAccess = true;
       };
+
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
+
       CustomUserPreferences = {
         "com.apple.WindowManager" = {
            EnableTiledWindowMargins = 0;
@@ -334,5 +333,14 @@ in
       enableKeyMapping = true;
       remapCapsLockToControl = true;
     };
+
+  };
+
+  networking = { 
+    applicationFirewall = {
+      enable = true;
+      enableStealthMode = true;
+      blockAllIncoming = true;
+   };
   };
 }
