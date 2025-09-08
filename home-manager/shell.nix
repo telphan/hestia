@@ -3,7 +3,7 @@
   programs.zsh = {
     enable = true;
     autocd = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.home.homeDirectory}/.config/zsh";
     enableCompletion = true;
 
     autosuggestion = {
@@ -30,7 +30,7 @@
       glg = "git log –stat";
     };
 
-    initExtra = ''
+    initContent = ''
       . "${pkgs.asdf-vm}/share/asdf-vm/asdf.sh"
       . "${pkgs.asdf-vm}/share/asdf-vm/completions/asdf.bash"
 
