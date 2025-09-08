@@ -6,6 +6,7 @@
     ./term.nix
     ./sketchybar/default.nix
     ./karabiner/default.nix
+    ./expert/default.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -30,9 +31,12 @@
 
     fd
 
-    # Work
+    # Managed by asdf
     #elixir
     #erlang
+
+    just
+    zig
 
     postgresql
 

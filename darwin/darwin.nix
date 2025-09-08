@@ -37,6 +37,7 @@ in
       docker-compose
       cachix
       asdf-vm
+      git-lfs
     ];
     shells = [ pkgs.zsh ];
   };
