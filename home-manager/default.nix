@@ -29,11 +29,13 @@
     zoxide
     fzy
 
+    httpyac
     fd
 
     # Managed by asdf
     #elixir
     #erlang
+
 
     just
     zig
