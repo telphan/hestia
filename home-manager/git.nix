@@ -1,20 +1,35 @@
 { config, pkgs, ... }:
 {
+  programs.delta = {
+    enable = true;
+    options = {
+      navigate = true;
+      line-numbers = true;
+      syntax-theme = "GitHub";
+    };
+
+    enableGitIntegration = true;
+  };
   programs.git  = {
     enable = true;
     lfs.enable = true;
 
-    userName = "Theodor Ghezan";
-    userEmail = "theodor@duffel.com";
     signing = {
       key = "6A7156F77E2B2B94";
       signByDefault = true;
     };
 
-    aliases = {
-      prettylog = "...";
-    };
-    extraConfig = {
+    settings = {
+
+      user = {
+        name = "Theodor Ghezan"; 
+        email = "theodor@duffel.com";
+      };
+
+      alias = {
+        prettylog = "...";
+      };
+
       core = {
         editor = "nvim";
       };
@@ -34,6 +49,7 @@
         "git-fetch-with-cli" = true;
       };
     };
+
     ignores = [
       ".DS_Store"
       "*.pyc"
@@ -43,13 +59,5 @@
       "devenv*"
       ".devenv*"
     ];
-    delta = {
-      enable = true;
-      options = {
-        navigate = true;
-        line-numbers = true;
-        syntax-theme = "GitHub";
-      };
-    };
   };
 }
