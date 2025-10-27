@@ -23,6 +23,7 @@
     _1password-cli
     terminal-notifier
     direnv
+    devenv
     gnupg
     go
     zoxide
