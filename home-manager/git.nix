@@ -48,7 +48,17 @@
       net = {
         "git-fetch-with-cli" = true;
       };
+
+      diff.gz = {
+        textconv = "zcat";
+        cachetextconv = true;
+        binary = true;
+      };
     };
+
+    attributes = [
+      "*.gz diff=gz"
+    ];
 
     ignores = [
       ".DS_Store"
@@ -58,6 +68,12 @@
       ".envrc"
       "devenv*"
       ".devenv*"
+      ".direnv"
+      ".env"
+      ".httpyac*"
+      "httpyac.config.js"
+      "http_collections"
+      "scratch/"
     ];
   };
 }

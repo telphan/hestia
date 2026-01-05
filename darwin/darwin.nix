@@ -255,6 +255,7 @@ in
     ];
 
     brews = [
+      "cloudflared"
       "openjdk"
       "java"
       "coreutils"
