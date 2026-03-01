@@ -42,10 +42,17 @@
 
     postgresql
 
-    # AI
-    claude-code
+(google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
 
-    (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
+    argocd
+    awscli2
+    hcloud
+    nodejs_22
+    ollama
+    tailscale
+    nomad
+    packer
+    terraform
   ];
 
   programs.bat = {
