@@ -230,6 +230,11 @@ in
 
     taps = [
       "homebrew/services"
+      {
+        name = "duffelhq/taps";
+        clone_target = "git@github.com:duffelhq/homebrew-taps.git";
+        force_auto_update = true;
+      }
     ];
 
     casks = [
@@ -252,9 +257,13 @@ in
       "sf-symbols"
       "font-sf-mono"
       "font-sf-pro"
+
+      # Docker replacement
+      "orbstack"
     ];
 
     brews = [
+
       "cloudflared"
       "openjdk"
       "java"
@@ -269,6 +278,9 @@ in
       "openssl@3"
       "unixodbc"
       "wxwidgets"
+
+      "duffelhq/taps/duffel-theatre"
+      "duffelhq/taps/air-traffic-control"
     ];
 
     masApps = {
