@@ -27,7 +27,7 @@ let
   };
 in
 {
-  nix.enable = false;
+  nix.enable = true;
 
   system.stateVersion = 4;
 

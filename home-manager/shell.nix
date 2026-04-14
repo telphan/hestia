@@ -41,7 +41,7 @@
       AGKOZAK_CUSTOM_SYMBOLS=( '⇣⇡' '⇣' '⇡' '+' 'x' '!' '>' '?' )
       AGKOZAK_MULTILINE=0
       AGKOZAK_PROMPT_CHAR=( ❯ ❯ ❮ )
-      PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/bin"
       eval "$(/opt/homebrew/bin/brew shellenv)"
       eval "$(direnv hook zsh)"
       eval "$(zoxide init zsh)"
