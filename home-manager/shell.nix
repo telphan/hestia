@@ -3,7 +3,7 @@
   programs.zsh = {
     enable = true;
     autocd = true;
-    dotDir = "${config.home.homeDirectory}/.config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     enableCompletion = true;
 
     autosuggestion = {
@@ -18,8 +18,8 @@
       ip = "ip --color=auto";
       g = "git";
       ga = "git add";
-      gaa = "git add –all";
-      gapa = "git add –patch";
+      gaa = "git add --all";
+      gapa = "git add --patch";
       gc = "git commit";
       gcmsg = "git commit -m";
       gst = "git status";
@@ -27,20 +27,13 @@
       gl = "git pull";
       gd = "git diff";
       gco = "git checkout";
-      glg = "git log –stat";
+      glg = "git log --stat";
     };
 
     initContent = ''
-      . "${pkgs.asdf-vm}/share/asdf-vm/asdf.sh"
-      . "${pkgs.asdf-vm}/share/asdf-vm/completions/asdf.bash"
+      . "${pkgs.asdf-vm}/etc/profile.d/asdf-prepare.sh"
 
       bindkey '^ ' autosuggest-accept
-      AGKOZAK_CMD_EXEC_TIME=5
-      AGKOZAK_COLORS_CMD_EXEC_TIME='yellow'
-      AGKOZAK_COLORS_PROMPT_CHAR='magenta'
-      AGKOZAK_CUSTOM_SYMBOLS=( '⇣⇡' '⇣' '⇡' '+' 'x' '!' '>' '?' )
-      AGKOZAK_MULTILINE=0
-      AGKOZAK_PROMPT_CHAR=( ❯ ❯ ❮ )
       PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/bin"
       eval "$(/opt/homebrew/bin/brew shellenv)"
       eval "$(direnv hook zsh)"
@@ -50,16 +43,6 @@
     '';
 
     plugins = with pkgs; [
-      {
-        name = "agkozak-zsh-prompt";
-        src = fetchFromGitHub {
-          owner = "agkozak";
-          repo = "agkozak-zsh-prompt";
-          rev = "v3.7.0";
-          sha256 = "1iz4l8777i52gfynzpf6yybrmics8g4i3f1xs3rqsr40bb89igrs";
-        };
-        file = "agkozak-zsh-prompt.plugin.zsh";
-      }
       {
         name = "zsh-syntax-highlighting";
         src = fetchFromGitHub {
@@ -90,16 +73,6 @@
         };
         file = "autopair.zsh";
       }
-      {
-        name = "zsh-zoxide";
-        src = fetchFromGitHub {
-          owner = "ajeetdsouza";
-          repo = "zoxide";
-          rev = "v0.8.1";
-          sha256 = "1h0vm2dgrmb8i2pvsgis3lshc5b0ad846836m62y8h3rdb3zmpy1";
-        };
-        file = "zoxide.plugin.zsh";
-      }
     ];
   };
 
@@ -107,8 +80,4 @@
     enable = true;
     enableZshIntegration = true;
   };
-
-  # Scripts
-  # home.file.".config/zsh/scripts".source = ./files/scripts;
-  # home.file.".config/zsh/scripts".recursive = true;
 }

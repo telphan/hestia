@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-      #url = "github:NixOS/nixpkgs/nixos-24.11";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -14,7 +13,8 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
- };
+  };
+
   outputs = {
     nixpkgs,
     darwin,
@@ -29,15 +29,22 @@
           home-manager.darwinModules.home-manager
           {
             _module.args = { inherit inputs user; };
+            nixpkgs.config.allowUnfree = true;
+            nixpkgs.overlays = [
+              (final: prev: {
+                sbar-lua = prev.callPackage ./home-manager/sketchybar/sbarlua.nix {};
+              })
+            ];
             home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "hm-backup";
               users.${user} = import ./home-manager;
-
-	      extraSpecialArgs = {
-                 inherit inputs user;
+              extraSpecialArgs = {
+                inherit inputs user;
               };
             };
             users.users.${user}.home = "/Users/${user}";
-            nix.settings.trusted-users = [ user ];
           }
         ];
       };
@@ -50,26 +57,32 @@
           ./nixos/configuration.nix
           home-manager.nixosModules.home-manager
           {
+            _module.args = { inherit inputs; user = "nixos"; };
+            nixpkgs.config.allowUnfree = true;
             home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
               users.nixos = import ./home-manager;
-
+              extraSpecialArgs = {
+                inherit inputs;
+                user = "nixos";
+              };
             };
-
             nix = {
               settings = {
                 allowed-users = [ "root" ];
                 trusted-users = [ "root" ];
                 max-jobs = 10;
                 cores = 10;
-		experimental-features = [ "nix-command" "flakes" ];
+                experimental-features = [ "nix-command" "flakes" ];
               };
             };
-	  }
+          }
         ];
       };
     };
     darwinConfigurations = {
-      "Teds-MacBook-Pro" = darwinSystem {
+      "Theodors-MacBook-Pro" = darwinSystem {
         user = "telphan";
         arch = "aarch64-darwin";
       };

@@ -1,32 +1,33 @@
 {...}:
 {
-  programs.starship = {
+   programs.starship = {
     enable = true;
 
     settings = {
-      command_timeout = 100;
-      format = "[$all](dimmed white)";
+      add_newline = false;
+      format = "$directory$elixir$lua$nix_shell$ruby$character";
+      right_format = "$cmd_duration";
 
-      directory.style = "italic white";
+      directory = {
+        style = "white";
+        truncation_length = 1;
+      };
 
-      git_branch.ignore_branches = [ "master" "main" ];
+      character = {
+        success_symbol = "[❯](green)";
+        error_symbol = "[❯](red)";
+      };
 
-      git_status = {
-        style  = "bold yellow";
-        format = "([$all_status$ahead_behind]($style) )";
+      cmd_duration = {
+        min_time = 500;
+        style = "white";
+        format = "[$duration]($style)";
       };
 
       elixir.symbol    = " ";
       lua.symbol       = "󰢱 ";
       nix_shell.symbol = " ";
-      ruby.symbol      = " ";
-
-      character = {
-        success_symbol = "[❯](dimmed green)";
-        error_symbol   = "[❯](dimmed red)";
-      };
-
-      jobs.disabled = true;
+      ruby.symbol      = " ";
     };
   };
 }

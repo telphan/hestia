@@ -1,85 +1,96 @@
-local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
+
+local SIZE = 26
+local RADIUS = SIZE / 2
+local BORDER = 3
 
 local battery = sbar.add("item", "widgets.battery", {
     position = "right",
     icon = {
-        font = {
-            style = settings.font.style_map["Regular"],
-            size = 19.0
-        }
+        drawing = false,
     },
     label = {
+        string = "??",
         font = {
-            family = settings.font.numbers
-        }
+            family = settings.font.numbers,
+            style = settings.font.style_map["Bold"],
+            size = 9.0,
+        },
+        color = colors.white,
+        align = "center",
+        padding_left = 1,
+        padding_right = 0,
+        width = SIZE,
+        y_offset = 1,
     },
+    background = {
+        height = SIZE,
+        corner_radius = RADIUS,
+        color = colors.transparent,
+        border_width = BORDER,
+        border_color = colors.green,
+        drawing = true,
+    },
+    width = SIZE,
+    padding_left = 0,
+    padding_right = 0,
     update_freq = 180,
     popup = {
-        align = "center"
-    }
+        align = "right",
+    },
 })
 
 local remaining_time = sbar.add("item", {
     position = "popup." .. battery.name,
     icon = {
         string = "Time remaining:",
-        width = 100,
-        align = "left"
+        width = 120,
+        align = "left",
     },
     label = {
         string = "??:??h",
         width = 100,
-        align = "right"
-    }
+        align = "right",
+    },
 })
 
 battery:subscribe({"routine", "power_source_change", "system_woke"}, function()
     sbar.exec("pmset -g batt", function(batt_info)
-        local icon = "!"
-        local label = "?"
-
         local found, _, charge = batt_info:find("(%d+)%%")
+        local label = "??"
         if found then
             charge = tonumber(charge)
-            label = charge .. "%"
+            label = tostring(charge)
         end
 
-        local color = colors.green
+        local border_color = colors.green
+        local bg_color = colors.transparent
         local charging, _, _ = batt_info:find("AC Power")
 
         if charging then
-            icon = icons.battery.charging
-        else
-            if found and charge > 80 then
-                icon = icons.battery._100
-            elseif found and charge > 60 then
-                icon = icons.battery._75
-            elseif found and charge > 40 then
-                icon = icons.battery._50
-            elseif found and charge > 20 then
-                icon = icons.battery._25
-                color = colors.orange
+            border_color = colors.green
+            bg_color = colors.with_alpha(colors.green, 0.2)
+        elseif found then
+            if charge > 60 then
+                border_color = colors.green
+            elseif charge > 40 then
+                border_color = colors.yellow
+            elseif charge > 20 then
+                border_color = colors.orange
             else
-                icon = icons.battery._0
-                color = colors.red
+                border_color = colors.red
             end
         end
 
-        local lead = ""
-        if found and charge < 10 then
-            lead = "0"
-        end
-
         battery:set({
-            icon = {
-                string = icon,
-                color = color
-            },
             label = {
-                string = lead .. label
-            }
+                string = label,
+            },
+            background = {
+                border_color = border_color,
+                color = bg_color,
+            },
         })
     end)
 end)
@@ -88,8 +99,8 @@ battery:subscribe("mouse.clicked", function(env)
     local drawing = battery:query().popup.drawing
     battery:set({
         popup = {
-            drawing = "toggle"
-        }
+            drawing = "toggle",
+        },
     })
 
     if drawing == "off" then
@@ -97,21 +108,9 @@ battery:subscribe("mouse.clicked", function(env)
             local found, _, remaining = batt_info:find(" (%d+:%d+) remaining")
             local label = found and remaining .. "h" or "No estimate"
             remaining_time:set({
-                label = label
+                label = label,
             })
         end)
     end
 end)
 
-sbar.add("bracket", "widgets.battery.bracket", {battery.name}, {
-    background = {
-        color = colors.transparent,
-        border_color = colors.white,
-        border_width = settings.widgets.border.width
-    }
-})
-
-sbar.add("item", "widgets.battery.padding", {
-    position = "right",
-    width = settings.group_paddings
-})

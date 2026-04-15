@@ -49,14 +49,14 @@ return {
     icons = "sketchybar-app-font:Regular:16.0", -- alternatively available: NerdFont
 
     font = {
-        text = "FiraCode Nerd Font Mono", -- Used for text
-        numbers = "FiraCode Nerd Font Mono", -- Used for numbers
+        text = "Hack Nerd Font Mono", -- Used for text
+        numbers = "Hack Nerd Font Mono", -- Used for numbers
         style_map = {
             ["Regular"] = "Regular",
-            ["Semibold"] = "Medium",
-            ["Bold"] = "SemiBold",
+            ["Semibold"] = "Bold",
+            ["Bold"] = "Bold",
             ["Heavy"] = "Bold",
-            ["Black"] = "ExtraBold"
+            ["Black"] = "Bold"
         }
     },
     widgets = {

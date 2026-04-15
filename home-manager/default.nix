@@ -1,17 +1,20 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, user, ... }:
 {
-  imports = [ 
+  imports = [
     ./git.nix
     ./shell.nix
+    ./starship.nix
     ./term.nix
     ./sketchybar/default.nix
     ./karabiner/default.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  home.username = user;
+  home.homeDirectory =
+    if pkgs.stdenv.isDarwin
+    then "/Users/${user}"
+    else "/home/${user}";
 
-  home.username = "telphan";
-  home.homeDirectory = "/Users/telphan";
   home.packages = with pkgs; [
     lua54Packages.lua
 
@@ -32,17 +35,12 @@
     httpyac
     fd
 
-    # Managed by asdf
-    #elixir
-    #erlang
-
-
     just
     zig
 
     postgresql
 
-(google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
+    (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
 
     argocd
     awscli2
@@ -50,8 +48,6 @@
     nodejs_22
     ollama
     tailscale
-    nomad
-    packer
     terraform
   ];
 
@@ -59,7 +55,7 @@
     enable = true;
     config = {
       theme = "GitHub";
-      italic-text= "always";
+      italic-text = "always";
     };
   };
 

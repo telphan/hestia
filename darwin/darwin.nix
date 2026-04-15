@@ -1,40 +1,11 @@
-{ pkgs, lib, user, ... }: 
-let
-  aerospace = pkgs.stdenv.mkDerivation rec {
-    pname = "aerospace";
-    version = "0.19.2-Beta";
-
-    src = pkgs.fetchzip {
-      url = "https://github.com/nikitabobko/AeroSpace/releases/download/v${version}/AeroSpace-v${version}.zip";
-      sha256 = "sha256-6RyGw84GhGwULzN0ObjsB3nzRu1HYQS/qoCvzVWOYWQ=";
-    };
-
-    installPhase = ''
-      mkdir -p $out/Applications
-      cp -r AeroSpace.app $out/Applications/
-      mkdir -p $out/bin
-
-      cp bin/aerospace $out/bin/
-      chmod +x $out/bin/aerospace
-    '';
-
-    meta = with lib; {
-      description = "AeroSpace is an i3-like tiling window manager for macOS";
-      homepage = "https://github.com/nikitabobko/AeroSpace";
-      license = licenses.mit;
-      platforms = platforms.darwin;
-    };
-  };
-in
+{ pkgs, lib, user, ... }:
 {
-  nix.enable = true;
+  nix.enable = false;
 
   system.stateVersion = 4;
 
   environment = {
-    darwinConfig = "$HOME/repos/hestia/darwin";
     systemPackages = with pkgs; [
-      docker-compose
       cachix
       asdf-vm
       git-lfs
@@ -50,73 +21,68 @@ in
 
   services = {
     sketchybar = {
-        enable = true;
-
-    	package = pkgs.sketchybar;
+      enable = true;
+      package = pkgs.sketchybar;
     };
 
     aerospace = {
       enable = true;
-
-      package = aerospace;
+      package = pkgs.aerospace;
 
       settings = {
         accordion-padding = 4;
-	on-window-detected = [
-	  {
-            "if" = {
-	      app-id = "com.electron.motion";
-	    };
-
-	    run = "move-node-to-workspace 4";
-	  }
-	  {
-            "if" = {
-	      app-id = "md.obsidian";
-	    };
-
-	    run = "move-node-to-workspace 5";
-	  }
-	  {
-	    "if" = {
-	    	app-id = "company.thebrowser.Browser";
-	    };
-	    run = "move-node-to-workspace 6";
-	  }
+        on-window-detected = [
           {
-	    "if" = {
-	    	app-id = "com.tinyspeck.slackmacgap";
-	    };
-	    run = "move-node-to-workspace 7";
-	  }
-	  {
-	    "if" = {
-	    	app-id = "com.linear";
-	    };
-	    run = "move-node-to-workspace 8";
-	  }
+            "if" = { app-id = "org.alacritty"; };
+            run = "move-node-to-workspace 1";
+          }
           {
-	    "if" = {
-	    	app-id = "notion.id";
-	    };
-	    run = "move-node-to-workspace 9";
-	  }
-	];
+            "if" = { app-id = "dev.zed.Zed"; };
+            run = "move-node-to-workspace 2";
+          }
+          {
+            "if" = { app-id = "com.spotify.client"; };
+            run = "move-node-to-workspace 3";
+          }
+          {
+            "if" = { app-id = "com.electron.motion"; };
+            run = "move-node-to-workspace 4";
+          }
+          {
+            "if" = { app-id = "md.obsidian"; };
+            run = "move-node-to-workspace 5";
+          }
+          {
+            "if" = { app-id = "company.thebrowser.Browser"; };
+            run = "move-node-to-workspace 6";
+          }
+          {
+            "if" = { app-id = "com.tinyspeck.slackmacgap"; };
+            run = "move-node-to-workspace 7";
+          }
+          {
+            "if" = { app-id = "com.linear"; };
+            run = "move-node-to-workspace 8";
+          }
+          {
+            "if" = { app-id = "notion.id"; };
+            run = "move-node-to-workspace 9";
+          }
+        ];
         on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
         workspace-to-monitor-force-assignment = {
-          "1" = ["main"];
-          "2" = ["secondary" "main"];
+          "1" = [ "main" ];
+          "2" = [ "secondary" "main" ];
         };
-	gaps = {
+        gaps = {
           inner.horizontal = 6;
           inner.vertical = 6;
           outer.left = 6;
           outer.bottom = 6;
           outer.top = 6;
           outer.right = 6;
-       };
+        };
 
-         
         mode = {
           main = {
             binding = {
@@ -153,10 +119,10 @@ in
               cmd-alt-ctrl-tab = "workspace-back-and-forth";
               cmd-alt-ctrl-shift-tab = "move-node-to-monitor --wrap-around next";
               cmd-alt-ctrl-shift-semicolon = [
-	        "mode service"
-		"exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_enter_service_mode"
-	      ];
-	      cmd-alt-ctrl-enter = ''exec-and-forget osascript -e '
+                "mode service"
+                "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_enter_service_mode"
+              ];
+              cmd-alt-ctrl-enter = ''exec-and-forget osascript -e '
                 tell application "Alacritty"
                 do script
                 activate
@@ -166,21 +132,21 @@ in
           };
           service = {
             binding = {
-              esc = [ "reload-config" "mode main" "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_leave_service_mode"];
-              r = [ "flatten-workspace-tree" "mode main" "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_leave_service_mode"];
-              f = [ "layout floating tiling" "mode main" "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_leave_service_mode"];
-              backspace = [ "close-all-windows-but-current" "mode main" "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_leave_service_mode"];
+              esc = [ "reload-config" "mode main" "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_leave_service_mode" ];
+              r = [ "flatten-workspace-tree" "mode main" "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_leave_service_mode" ];
+              f = [ "layout floating tiling" "mode main" "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_leave_service_mode" ];
+              backspace = [ "close-all-windows-but-current" "mode main" "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_leave_service_mode" ];
             };
           };
         };
 
-	exec-on-workspace-change = [
+        exec-on-workspace-change = [
           "/bin/zsh"
           "-c"
           "${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_workspace_changed FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE"
         ];
 
-	on-focus-changed = [
+        on-focus-changed = [
           "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_focus_change"
         ];
       };
@@ -196,17 +162,20 @@ in
     };
   };
 
+  launchd.user.agents.sketchybar.serviceConfig.EnvironmentVariables.HOME = "/Users/${user}";
+
   programs = {
     gnupg.agent.enable = true;
-    zsh  = {
-      enable = true;  # default shell on catalina
+    zsh = {
+      enable = true;
     };
   };
 
   fonts.packages = [
     pkgs.atkinson-hyperlegible
     pkgs.jetbrains-mono
-  ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+    pkgs.nerd-fonts.hack
+  ];
 
   homebrew = {
     enable = true;
@@ -215,11 +184,10 @@ in
       appdir = "~/Applications";
     };
 
-    brewPrefix = "/opt/homebrew/bin";
+    prefix = "/opt/homebrew";
 
     global = {
-      brewfile =  true;
-      noLock = null;
+      brewfile = true;
     };
 
     onActivation = {
@@ -229,7 +197,6 @@ in
     };
 
     taps = [
-      "homebrew/services"
       {
         name = "duffelhq/taps";
         clone_target = "git@github.com:duffelhq/homebrew-taps.git";
@@ -244,13 +211,10 @@ in
       "alacritty"
       "1password"
       "spotify"
+      "arc"
       "slack"
-      "docker-desktop"
-
       "zoom"
       "rapidapi"
-      "wkhtmltopdf"
-
       "dteoh-devdocs"
 
       # Fonts
@@ -258,15 +222,13 @@ in
       "font-sf-mono"
       "font-sf-pro"
 
-      # Docker replacement
+      # Docker
       "orbstack"
     ];
 
     brews = [
-
       "cloudflared"
       "openjdk"
-      "java"
       "coreutils"
       "macos-term-size"
       "xz"
@@ -283,9 +245,12 @@ in
       "duffelhq/taps/air-traffic-control"
     ];
 
-    masApps = {
-    };
+    masApps = {};
   };
+
+  system.activationScripts.postActivation.text = ''
+    osascript -e 'tell application "System Events" to tell every desktop to set picture to "/System/Library/Desktop Pictures/Solid Colors/Black.png"'
+  '';
 
   system = {
     primaryUser = user;
@@ -302,35 +267,35 @@ in
         static-only = true;
         mru-spaces = false;
         show-recents = false;
-	expose-group-apps = true;
+        expose-group-apps = true;
       };
       finder = {
         AppleShowAllExtensions = true;
         FXEnableExtensionChangeWarning = false;
-        CreateDesktop = false; # disable desktop icons
-	ShowPathbar = true;
-
+        CreateDesktop = false;
+        ShowPathbar = true;
       };
       trackpad = {
         Clicking = true;
         TrackpadThreeFingerDrag = true;
         Dragging = true;
       };
-
       loginwindow = {
         GuestEnabled = false;
         DisableConsoleAccess = true;
       };
-
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
-
       CustomUserPreferences = {
         "com.apple.WindowManager" = {
-           EnableTiledWindowMargins = 0;
-	};
+          EnableTiledWindowMargins = 0;
+        };
+        "com.apple.spaces" = {
+          spans-displays = 1;
+        };
       };
       NSGlobalDomain = {
-        AppleInterfaceStyle = "Dark"; # set dark mode
+        AppleFontSmoothing = 2;
+        AppleInterfaceStyle = "Dark";
         AppleKeyboardUIMode = 3;
         ApplePressAndHoldEnabled = false;
         NSAutomaticCapitalizationEnabled = false;
@@ -347,14 +312,37 @@ in
       enableKeyMapping = true;
       remapCapsLockToControl = true;
     };
-
   };
 
-  networking = { 
+  launchd.user.agents.arc = {
+    serviceConfig = {
+      ProgramArguments = [ "/usr/bin/open" "-a" "Arc" ];
+      RunAtLoad = true;
+      KeepAlive = false;
+    };
+  };
+
+  launchd.user.agents.alacritty = {
+    serviceConfig = {
+      ProgramArguments = [ "/usr/bin/open" "-a" "Alacritty" ];
+      RunAtLoad = true;
+      KeepAlive = false;
+    };
+  };
+
+  launchd.user.agents.orbstack = {
+    serviceConfig = {
+      ProgramArguments = [ "/usr/bin/open" "-a" "OrbStack" ];
+      RunAtLoad = true;
+      KeepAlive = false;
+    };
+  };
+
+  networking = {
     applicationFirewall = {
       enable = true;
       enableStealthMode = true;
       blockAllIncoming = true;
-   };
+    };
   };
 }

@@ -1,9 +1,8 @@
 local colors = require("colors")
-local settings = require("settings")
 
-sbar.exec("killall cpu_load >/dev/null; $CONFIG_DIR/helpers/event_providers/cpu_load/bin/cpu_load cpu_update 2.0")
+sbar.exec("killall memory_load >/dev/null; $CONFIG_DIR/helpers/event_providers/memory_load/bin/memory_load memory_update 2.0")
 
-local cpu = sbar.add("graph", "widgets.cpu", 42, {
+local memory = sbar.add("graph", "widgets.memory", 42, {
     position = "right",
     graph = {
         color = colors.white,
@@ -24,9 +23,9 @@ local cpu = sbar.add("graph", "widgets.cpu", 42, {
     padding_left = 0,
 })
 
-cpu:subscribe("cpu_update", function(env)
-    local load = tonumber(env.total_load)
-    cpu:push({ load / 100. })
+memory:subscribe("memory_update", function(env)
+    local load = tonumber(env.memory_load)
+    memory:push({ load / 100. })
 
     local color = colors.white
     if load > 30 then
@@ -39,13 +38,13 @@ cpu:subscribe("cpu_update", function(env)
         end
     end
 
-    cpu:set({
+    memory:set({
         graph = {
             color = color,
         },
     })
 end)
 
-cpu:subscribe("mouse.clicked", function(env)
+memory:subscribe("mouse.clicked", function(env)
     sbar.exec("open -a 'Activity Monitor'")
 end)

@@ -1,10 +1,4 @@
 {pkgs, ...}: {
-  nixpkgs.overlays = [
-    (final: prev: {
-      sbar-lua = prev.callPackage ./sbarlua.nix {};
-    })
-  ];
-
   home.packages = with pkgs; [
     sketchybar-app-font
     sbar-lua
@@ -27,7 +21,7 @@
       require("init")
 
       -- Enable hot reloading
-      sbar.exec("sketchybar --hotload true")      
+      sbar.exec("sketchybar --hotload true")
     '';
     executable = true;
     onChange = "${pkgs.sketchybar}/bin/sketchybar --reload";
