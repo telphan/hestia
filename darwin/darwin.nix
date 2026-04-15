@@ -208,6 +208,8 @@
       "zed"
       "obsidian"
       "notion"
+      "superhuman"
+      "tailscale-app"
       "karabiner-elements"
       "alacritty"
       "1password"
