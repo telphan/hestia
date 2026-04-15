@@ -207,6 +207,7 @@
     casks = [
       "zed"
       "obsidian"
+      "notion"
       "karabiner-elements"
       "alacritty"
       "1password"
