@@ -19,6 +19,10 @@
     };
   };
 
+  environment.etc."sudoers.d/timestamp_timeout".text = ''
+    Defaults timestamp_timeout=0
+  '';
+
   services = {
     sketchybar = {
       enable = true;
@@ -41,16 +45,12 @@
             run = "move-node-to-workspace 2";
           }
           {
-            "if" = { app-id = "com.spotify.client"; };
+            "if" = { app-id = "com.superhuman.electron"; };
             run = "move-node-to-workspace 3";
           }
           {
-            "if" = { app-id = "com.electron.motion"; };
-            run = "move-node-to-workspace 4";
-          }
-          {
             "if" = { app-id = "md.obsidian"; };
-            run = "move-node-to-workspace 5";
+            run = "move-node-to-workspace 4";
           }
           {
             "if" = { app-id = "company.thebrowser.Browser"; };
@@ -65,7 +65,7 @@
             run = "move-node-to-workspace 8";
           }
           {
-            "if" = { app-id = "notion.id"; };
+            "if" = { app-id = "us.zoom.xos"; };
             run = "move-node-to-workspace 9";
           }
         ];
@@ -215,6 +215,7 @@
       "1password"
       "spotify"
       "arc"
+      "linear-linear"
       "slack"
       "zoom"
       "rapidapi"

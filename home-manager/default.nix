@@ -25,7 +25,6 @@
     eza
     _1password-cli
     terminal-notifier
-    direnv
     devenv
     gnupg
     go
@@ -34,6 +33,7 @@
 
     httpyac
     fd
+    ncurses
 
     just
     zig
@@ -57,6 +57,11 @@
       theme = "GitHub";
       italic-text = "always";
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   xdg.enable = true;

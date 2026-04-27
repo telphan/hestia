@@ -5,7 +5,7 @@
 
     settings = {
       add_newline = false;
-      format = "$directory$elixir$lua$nix_shell$ruby$character";
+      format = "$directory$git_branch$elixir$lua$nix_shell$ruby$character";
       right_format = "$cmd_duration";
 
       directory = {
@@ -23,6 +23,14 @@
         style = "white";
         format = "[$duration]($style)";
       };
+
+      git_branch = {
+        symbol = " ";
+        style = "white";
+        format = "[$symbol$branch]($style) ";
+      };
+
+      nix_shell.format = "[$symbol]($style) ";
 
       elixir.symbol    = " ";
       lua.symbol       = "󰢱 ";

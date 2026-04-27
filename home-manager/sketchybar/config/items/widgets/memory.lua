@@ -24,7 +24,8 @@ local memory = sbar.add("graph", "widgets.memory", 42, {
 })
 
 memory:subscribe("memory_update", function(env)
-    local load = tonumber(env.memory_load)
+    local load = tonumber((env.memory_load or ""):match("%d+"))
+    if not load then return end
     memory:push({ load / 100. })
 
     local color = colors.white

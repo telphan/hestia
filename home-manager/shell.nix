@@ -1,4 +1,7 @@
 { config, lib, pkgs, ... }:
+let
+  ccrSessions = ./scripts/ccr-sessions.py;
+in
 {
   programs.zsh = {
     enable = true;
@@ -36,10 +39,43 @@
       bindkey '^ ' autosuggest-accept
       PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/bin"
       eval "$(/opt/homebrew/bin/brew shellenv)"
-      eval "$(direnv hook zsh)"
       eval "$(zoxide init zsh)"
       zle && { zle reset-prompt; zle -R }
       autopair-init
+
+      # --- Claude Code cross-project session picker -------------------
+      _ccr_pick() {
+        python3 ${ccrSessions} | \
+          fzf --ansi --delimiter=$'\t' --with-nth=1,2,4 \
+              --preview="python3 ${ccrSessions} {3}" \
+              --preview-window=down:50%:wrap
+      }
+
+      ccr() {
+        local pick cwd uuid
+        pick=$(_ccr_pick) || return
+        [[ -z "$pick" ]] && return
+        cwd=$(print -r -- "$pick" | awk -F'\t' '{print $2}')
+        uuid=$(print -r -- "$pick" | awk -F'\t' '{print $3}')
+        cd -- "$cwd" || return
+        claude --resume "$uuid"
+      }
+
+      _ccr_widget() {
+        local pick cwd uuid
+        pick=$(_ccr_pick)
+        if [[ -n "$pick" ]]; then
+          cwd=$(print -r -- "$pick" | awk -F'\t' '{print $2}')
+          uuid=$(print -r -- "$pick" | awk -F'\t' '{print $3}')
+          BUFFER="cd ''${(q)cwd} && claude --resume ''${(q)uuid}"
+          zle accept-line
+        else
+          zle reset-prompt
+        fi
+      }
+      zle -N _ccr_widget
+      bindkey '^G' _ccr_widget
+      # ----------------------------------------------------------------
     '';
 
     plugins = with pkgs; [
