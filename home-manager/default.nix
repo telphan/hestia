@@ -7,6 +7,7 @@
     ./term.nix
     ./sketchybar/default.nix
     ./karabiner/default.nix
+    ./multi-mcp.nix
   ];
 
   home.username = user;
