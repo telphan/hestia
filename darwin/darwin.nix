@@ -252,6 +252,18 @@
     masApps = {};
   };
 
+  # Trust our internal Homebrew tap before `brew bundle` runs. Homebrew 6+
+  # refuses untrusted non-official taps, and the bundle runs as ${user} with a
+  # sanitized env (no XDG_CONFIG_HOME), so it reads ~/.homebrew/trust.json — not
+  # ~/.config/homebrew/trust.json. preActivation runs (as root) before the
+  # Homebrew bundle step, so the trust file is in place in time (incl. fresh
+  # machines, where home-manager activates only *after* the bundle).
+  system.activationScripts.preActivation.text = ''
+    install -d -m 0755 -o ${user} -g staff /Users/${user}/.homebrew
+    printf '%s' '{"trustedtaps":["duffelhq/taps"]}' > /Users/${user}/.homebrew/trust.json
+    chown ${user}:staff /Users/${user}/.homebrew/trust.json
+  '';
+
   system.activationScripts.postActivation.text = ''
     osascript -e 'tell application "System Events" to tell every desktop to set picture to "/System/Library/Desktop Pictures/Solid Colors/Black.png"'
   '';
