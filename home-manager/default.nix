@@ -8,6 +8,7 @@
     ./sketchybar/default.nix
     ./karabiner/default.nix
     ./multi-mcp.nix
+    ./opencode.nix
   ];
 
   home.username = user;
