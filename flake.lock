@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "aerospace-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788650601,
+        "narHash": "sha256-O8uUS4jXwVZnAxNaoy+zKjZ1CvIR1cNzmTjdtBoKW/Q=",
+        "owner": "nikitabobko",
+        "repo": "AeroSpace",
+        "rev": "39e519044725694635712c739df9ca40ae78c5d1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nikitabobko",
+        "ref": "main",
+        "repo": "AeroSpace",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -58,6 +75,7 @@
     },
     "root": {
       "inputs": {
+        "aerospace-src": "aerospace-src",
         "darwin": "darwin",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs"

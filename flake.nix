@@ -2,6 +2,10 @@
   description = "Ted's Nix System Configuration";
 
   inputs = {
+    aerospace-src = {
+      url = "github:nikitabobko/AeroSpace/main";
+      flake = false;
+    };
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     };
@@ -32,6 +36,9 @@
             nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = [
               (final: prev: {
+                aerospace = prev.callPackage ./darwin/aerospace.nix {
+                  source = inputs.aerospace-src;
+                };
                 sbar-lua = prev.callPackage ./home-manager/sketchybar/sbarlua.nix {};
               })
             ];

@@ -9,6 +9,7 @@
     ./karabiner/default.nix
     ./multi-mcp.nix
     ./opencode.nix
+    ./ai-tools.nix
   ];
 
   home.username = user;
@@ -48,6 +49,7 @@
     awscli2
     hcloud
     nodejs_22
+    (nomad.overrideAttrs (_: { doCheck = false; }))
     ollama
     tailscale
     terraform

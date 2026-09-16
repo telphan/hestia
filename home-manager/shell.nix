@@ -43,6 +43,9 @@ in
       zle && { zle reset-prompt; zle -R }
       autopair-init
 
+      # fzf integration, only with a real terminal (see programs.fzf note).
+      [[ -t 1 ]] && source <(${pkgs.fzf}/bin/fzf --zsh)
+
       # --- Claude Code cross-project session picker -------------------
       _ccr_pick() {
         python3 ${ccrSessions} | \
@@ -114,6 +117,14 @@ in
 
   programs.fzf = {
     enable = true;
-    enableZshIntegration = true;
+    # Integration is sourced manually in initContent behind a TTY check instead
+    # of via this option. home-manager guards its `source <(fzf --zsh)` with
+    # `[[ $options[zle] = on ]]`, but `zle` reads as on in ANY interactive shell
+    # (`zsh -i`), even one with no terminal — e.g. the login+interactive shell the
+    # Elixir language server (Expert) spawns to load the environment. fzf's script
+    # saves/restores the `options` array, and restoring `zle on` without a TTY
+    # prints "(eval):1: can't change option: zle" to the LS's stderr. Gating on a
+    # real terminal (`-t 1`) avoids that while keeping fzf in interactive use.
+    enableZshIntegration = false;
   };
 }

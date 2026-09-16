@@ -192,7 +192,10 @@
 
     onActivation = {
       upgrade = true;
-      cleanup = "zap";
+      # This nix-darwin pin emits --cleanup, which Homebrew 7 removed.
+      # Preserve zap cleanup using Homebrew's supported explicit flags.
+      cleanup = "none";
+      extraFlags = [ "--force-cleanup" "--zap" ];
       autoUpdate = true;
     };
 
