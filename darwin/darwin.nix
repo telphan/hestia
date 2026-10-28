@@ -34,6 +34,11 @@
       package = pkgs.aerospace;
 
       settings = {
+        config-version = 2;
+        # Version 2 no longer infers these from the workspace key bindings.
+        persistent-workspaces = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" ];
+        # SketchyBar builds its workspace items once at load; reload it now that AeroSpace can answer.
+        after-startup-command = [ "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --reload" ];
         accordion-padding = 4;
         on-window-detected = [
           {
@@ -174,7 +179,14 @@
   fonts.packages = [
     pkgs.atkinson-hyperlegible
     pkgs.jetbrains-mono
-    pkgs.nerd-fonts.hack
+    # 3.5 adds the Claude and OpenAI codicons the SketchyBar AI widget uses.
+    (pkgs.nerd-fonts.hack.overrideAttrs {
+      version = "3.5.1";
+      src = pkgs.fetchurl {
+        url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.1/Hack.tar.xz";
+        hash = "sha256-zdOJRy4Q4iYVIBQP8bOCtPiiJq9f0LJzW5ddMRUdnDw=";
+      };
+    })
   ];
 
   homebrew = {
@@ -205,6 +217,7 @@
         clone_target = "git@github.com:duffelhq/homebrew-taps.git";
         force_auto_update = true;
       }
+      "hashicorp/tap"
     ];
 
     casks = [
@@ -218,11 +231,12 @@
       "1password"
       "spotify"
       "arc"
-      "linear-linear"
+      "linear"
       "slack"
       "zoom"
       "rapidapi"
       "dteoh-devdocs"
+      "ngrok"
 
       # Fonts
       "sf-symbols"
@@ -248,6 +262,14 @@
       "unixodbc"
       "wxwidgets"
 
+      "rtk"
+      "gitleaks"
+      "cloc"
+      "k6"
+      "redis"
+      "python@3.14"
+      "hashicorp/tap/nomad"
+
       "duffelhq/taps/duffel-theatre"
       "duffelhq/taps/air-traffic-control"
     ];
@@ -261,10 +283,12 @@
   # ~/.config/homebrew/trust.json. preActivation runs (as root) before the
   # Homebrew bundle step, so the trust file is in place in time (incl. fresh
   # machines, where home-manager activates only *after* the bundle).
+  # Let brew write the file itself: Homebrew 7 ignores the old hand-written format.
   system.activationScripts.preActivation.text = ''
-    install -d -m 0755 -o ${user} -g staff /Users/${user}/.homebrew
-    printf '%s' '{"trustedtaps":["duffelhq/taps"]}' > /Users/${user}/.homebrew/trust.json
-    chown ${user}:staff /Users/${user}/.homebrew/trust.json
+    if [ -x /opt/homebrew/bin/brew ]; then
+      sudo -u ${user} --set-home env -i HOME=/Users/${user} PATH=/opt/homebrew/bin:/usr/bin:/bin \
+        brew trust --taps duffelhq/taps hashicorp/tap
+    fi
   '';
 
   system.activationScripts.postActivation.text = ''

@@ -2,6 +2,11 @@
   home.packages = with pkgs; [
     sketchybar-app-font
     sbar-lua
+    (writeShellApplication {
+      name = "ai-attention";
+      runtimeInputs = [ jq terminal-notifier aerospace sketchybar ];
+      text = builtins.readFile ./ai-attention.sh;
+    })
   ];
 
   home.file.".config/sketchybar" = {
